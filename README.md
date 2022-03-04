@@ -15,10 +15,11 @@ subgraph atos_constritivos
   verifica_devedor --> |CPF| devedor_cpf((CPF))
   devedor_cpf --> devedor_ativo
   verifica_devedor --> |CNPJ| devedor_cnpj
-  rotina_prescricao
-  verificar_prescricao{Está prescrito?}
-  verificar_prescricao --> |Sim| peticiona_prescricao_intercorrente
-  verificar_prescricao --> |Não| verifica_devedor
+  subgraph rotina_prescricao
+    verificar_prescricao{Está prescrito?}
+    verificar_prescricao --> |Sim| peticiona_prescricao_intercorrente
+    verificar_prescricao --> |Não| verifica_devedor
+  end
 end
 
 subgraph rotina_cnib
@@ -97,7 +98,6 @@ petiona_nova_modalidade[Peticiona nova modalidade: Mandado, Hora certa, Edital]
   pesquisa_endereco --> |Não encontrado novo endereço e enquanto não for citado| petiona_nova_modalidade
   petiona_nova_modalidade --> mandado_citacao
   parte_citada --> prazo_para_pagamento(5 dias para pagamento)
-  prazo_para_pagamento
   prazo_para_pagamento --> |Notícia de pagamento| noticia_pagamento
   prazo_para_pagamento --> |Não pagou nem ofereceu garantia| inicio_prescricao
 end
@@ -110,5 +110,3 @@ subgraph rotina_ajuizamento
   peticiona_correcao --> despacho_inicial
 end
 
-
-```
