@@ -9,13 +9,13 @@ subgraph rotina_pagamento[Rotina pagamento]
   verifica_honorarios --> |Honorários quitados| execucao_quitada
   execucao_quitada --> peticiona_extincao_por_pagamento[Petiona extinção por pagamento]
 end
+
 subgraph atos_constritivos 
 inicio_prescricao(Início da prescrição) --> verifica_devedor{Tipo devedor?}
 verifica_devedor --> |CPF| devedor_cpf((CPF))
 devedor_cpf --> devedor_ativo
 verifica_devedor --> |CNPJ| devedor_cnpj
 rotina_prescricao
-
 verificar_prescricao{Está prescrito?}
 verificar_prescricao --> |Sim| peticiona_prescricao_intercorrente
 verificar_prescricao --> |Não| verifica_devedor
@@ -30,7 +30,6 @@ tipo_divida --> |Não Tributária| verificar_prescricao
 peticiona_cnib --> verifica_cnib
 peticiona_cnib --> cnib_decretado 
 cnib_decretado --> |Depois de 1 ano| verificar_prescricao
-
 end
 
 subgraph rotina_veiculos
