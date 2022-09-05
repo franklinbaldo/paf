@@ -1,6 +1,6 @@
 ```mermaid
 flowchart TD
-
+inicio_citacao((Petição de citação)) --> rotina_citacao
 subgraph rotina_citacao[Rotina citação]
   mandado_citacao{Mandado de citação}
   mandado_citacao --> |Positivo| parte_citada(Parte citada)
