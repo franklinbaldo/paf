@@ -4,37 +4,6 @@
 ```mermaid
 flowchart TD
 
-subgraph rotina_pagamento[Rotina pagamento]
-  noticia_pagamento(Notícia de pagamento) --> verifica_sitafe{Verifica sitafe}
-  verifica_sitafe --> |Todas CDA's quitadas| verifica_honorarios{Verifica honorarios}
-  verifica_sitafe --> |Saldo não pago| atos_constritivos
-  verifica_honorarios --> |Honorários quitados| execucao_quitada
-  execucao_quitada --> peticiona_extincao_por_pagamento[Petiona extinção por pagamento]
-end
-
-subgraph atos_constritivos 
-  inicio_prescricao(Início da prescrição) --> verifica_devedor{Tipo devedor?}
-  verifica_devedor --> |CPF| devedor_cpf((CPF))
-  devedor_cpf --> devedor_ativo
-  verifica_devedor --> |CNPJ| devedor_cnpj
-  subgraph rotina_prescricao
-    verificar_prescricao{Está prescrito?}
-    verificar_prescricao --> |Sim| peticiona_prescricao_intercorrente
-    verificar_prescricao --> |Não| verifica_devedor
-  end
-end
-
-subgraph rotina_cnib
-  verifica_cnib{Decretado CNIB?}
-  verifica_cnib --> |Sim| cnib_decretado
-  verifica_cnib --> |Não| tipo_divida{Tipo Divida?}
-  tipo_divida --> |Tributária| peticiona_cnib
-  tipo_divida --> |Não Tributária| verificar_prescricao
-  peticiona_cnib --> verifica_cnib
-  peticiona_cnib --> cnib_decretado 
-  cnib_decretado --> |Depois de 1 ano| verificar_prescricao
-end
-
 subgraph rotina_veiculos
   pesquisa_veiculos --> |Positivo| peticiona_penhora_veiculo
   pesquisa_veiculos --> |Negativa| verifica_cnib
