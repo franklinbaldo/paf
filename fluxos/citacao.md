@@ -14,4 +14,4 @@ petiona_nova_modalidade[Peticiona nova modalidade: Mandado, Hora certa, Edital]
   prazo_para_pagamento --> |Notícia de pagamento| noticia_pagamento
   prazo_para_pagamento --> |Não pagou nem ofereceu garantia| inicio_prescricao
 end
-```
+``` 
